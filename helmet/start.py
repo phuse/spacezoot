@@ -2,6 +2,7 @@
 
 import datetime
 import time
+from random import randint
 delay = 1
 
 from microdotphat import write_string, set_decimal, clear, show
@@ -77,14 +78,17 @@ def fire(strip):
   	b = 12;
 
   //  Flicker, based on our initial RGB values
-  	for i in range (0, i<strip.numPixels(), 1): 
-    		int flicker = random(0,55)
+  	for i in range (0, strip.numPixels(), 1): 
+    		int flicker = randint(0,55)
     		int r1 = r-flicker
     		int g1 = g-flicker
     		int b1 = b-flicker
-    		if(g1<0) g1=0
-    		if(r1<0) r1=0
-    		if(b1<0) b1=0
+    		if(g1<0): 
+			g1=0
+    		if(r1<0): 
+			r1=0
+    		if(b1<0): 
+			b1=0
     		strip.setPixelColor(i,r1,g1, b1)
   
   	strip.show()
