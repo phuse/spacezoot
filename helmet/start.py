@@ -77,7 +77,7 @@ def fire(strip):
   	g = 150
   	b = 12;
 
-  //  Flicker, based on our initial RGB values
+  	#  Flicker, based on our initial RGB values
   	for i in range (0, strip.numPixels(), 1): 
     		int flicker = randint(0,55)
     		int r1 = r-flicker
