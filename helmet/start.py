@@ -2,6 +2,7 @@
 
 import datetime
 import time
+delay = 1
 
 from microdotphat import write_string, set_decimal, clear, show
 from neopixel import *
@@ -70,6 +71,23 @@ def theaterChaseRainbow(strip, wait_ms=50):
 			time.sleep(wait_ms/1000.0)
 			for i in range(0, strip.numPixels(), 3):
 				strip.setPixelColor(i+q, 0)
+def fire(strip):
+  	r = 74
+  	g = 150
+  	b = 12;
+
+  //  Flicker, based on our initial RGB values
+  	for i in range (0, i<strip.numPixels(), 1): 
+    		int flicker = random(0,55)
+    		int r1 = r-flicker
+    		int g1 = g-flicker
+    		int b1 = b-flicker
+    		if(g1<0) g1=0
+    		if(r1<0) r1=0
+    		if(b1<0) b1=0
+    		strip.setPixelColor(i,r1,g1, b1)
+  
+  	strip.show()
 
 if __name__ == '__main__':
 	# Create NeoPixel object with appropriate configuration.
@@ -101,5 +119,6 @@ if __name__ == '__main__':
 		#theaterChase(strip, Color(  0,   0, 127))  # Blue theater chase
 		# Rainbow animations.
 		#rainbow(strip)
-		rainbowCycle(strip)
+                fire(strip)
+		#rainbowCycle(strip)
 		#theaterChaseRainbow(strip)
