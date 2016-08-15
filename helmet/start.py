@@ -79,17 +79,18 @@ def fire(strip):
 
   	#  Flicker, based on our initial RGB values
   	for i in range (0, strip.numPixels(), 1): 
-    		int flicker = randint(0,55)
-    		int r1 = r-flicker
-    		int g1 = g-flicker
-    		int b1 = b-flicker
+    		flicker = randint(0,55)
+    		r1 = r-flicker
+    		g1 = g-flicker
+    		b1 = b-flicker
     		if(g1<0): 
 			g1=0
     		if(r1<0): 
 			r1=0
     		if(b1<0): 
 			b1=0
-    		strip.setPixelColor(i,r1,g1, b1)
+		pcolor = Color(r1,g1,b1)	
+    		strip.setPixelColor(i,pcolor)
   
   	strip.show()
 
