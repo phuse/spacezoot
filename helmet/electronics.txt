@@ -1,0 +1,12 @@
+a list of components and links to possible improvements
+
+PIM187 alt. PIM186
+RPI-008
+https://shop.pimoroni.com/products/usb-to-microusb-otg-converter-shim
+https://thepihut.com/products/usb-wifi-adapter-for-the-raspberry-pi
+2x ADA2855
+2x ADA2868 
+1x PROTO-001
+
+add temp/humidity sensor in helmet:
+http://www.instructables.com/id/Build-Your-First-IOT-with-a-Raspberry-Pi-DHT11-sen/
