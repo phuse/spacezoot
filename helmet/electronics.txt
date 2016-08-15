@@ -8,5 +8,7 @@ https://thepihut.com/products/usb-wifi-adapter-for-the-raspberry-pi
 2x ADA2868 
 1x PROTO-001
 
+2x http://3d-grottan.se/Fan-41010-5V will have separate battery pack
+
 add temp/humidity sensor in helmet:
 http://www.instructables.com/id/Build-Your-First-IOT-with-a-Raspberry-Pi-DHT11-sen/
