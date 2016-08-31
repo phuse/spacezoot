@@ -11,7 +11,7 @@ import time
 #This function is called every time a key is presssed
 def kbevent( event ):
     #print key info
-    print(event)
+    print event
     
     #If the ascii value matches spacebar, terminate the while loop
     if event.Ascii == 32:
