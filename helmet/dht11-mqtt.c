@@ -16,8 +16,8 @@
 int data[5] = { 0, 0, 0, 0, 0 };
 #define ADDRESS     "tcp://localhost:1883"
 #define CLIENTID    "HelmetSensors"
-#define TOPIC       "HelmetData.temp"
-#define TOPIC2      "HelmetData.humidity"
+#define TOPIC       "helmet/temp"
+#define TOPIC2      "helmet/humid"
 #define QOS         1
 #define TIMEOUT     10000L
 
