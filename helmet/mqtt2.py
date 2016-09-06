@@ -4,6 +4,8 @@ import datetime
 import time
 from random import randint
 delay = 2
+silence = 10
+lastmsgat = time.time()
 
 from microdotphat import set_col,write_string, set_decimal, clear, show
 
@@ -40,7 +42,7 @@ def graphz(seconds):
 
       show()
       sleep(0.05)
-
+     
 # shows the clock
 def showtime(seconds):
     t_end = time.time() + seconds
@@ -56,17 +58,26 @@ def showtime(seconds):
        write_string(t.strftime('%H%M%S'), kerning=False)
       show()
       time.sleep(0.05)
+    clear()
+    lastmsgat = time.time()
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
+    global lastmsgat
     print("Connected with result code "+str(rc))
 
     # Subscribing in on_connect() means that if we lose the connection and
     # reconnect then subscriptions will be renewed.
     client.subscribe("helmet/#")
+    clear()
+    write_string('active', kerning=False)
+    show()
+    time.sleep(delay)
+    lastmsgat = time.time()
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
+    global lastmsgat
     print(msg.topic+" "+str(msg.payload))
     clear()
     write_string(remove_prefix(msg.topic, 'helmet/'), kerning=False)
@@ -75,6 +86,7 @@ def on_message(client, userdata, msg):
     clear()
     write_string(str(msg.payload), kerning=False)
     show()
+    lastmsgat = time.time()
     time.sleep(delay)
 
 client = mqtt.Client()
@@ -87,4 +99,11 @@ client.connect("127.0.0.1", 1883, 60)
 # handles reconnecting.
 # Other loop*() functions are available that give a threaded interface and a
 # manual interface.
-client.loop_forever()
+while True:
+  client.loop()
+  now = time.time()
+  if now - lastmsgat > silence:
+      print (datetime.datetime.fromtimestamp(now).strftime('%H:%M:%S') + " chirp")
+      showtime(10);
+      
+
