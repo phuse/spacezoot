@@ -129,6 +129,6 @@ while True:
         print (datetime.datetime.fromtimestamp(now).strftime('%H:%M:%S') + " chirp")
       
         options[nowshowing](10)
-        nowshowing++
+        nowshowing += 1
       
 
