@@ -14,8 +14,23 @@ def remove_prefix(text, prefix):
         return text[len(prefix):]
     return text
 
+def cputemp(seconds):
+    global lastmsgat
+    t_end = time.time() + seconds
+    while time.time() < t_end:
+      clear()
+      path="/sys/class/thermal/thermal_zone0/temp"
+      f = open(path, "r")
+      temp_raw = int(f.read().strip())
+      temp = float(temp_raw / 1000.0)
+      write_string( "%.2f" % temp + "c", kerning=False)
+      show()
+      time.sleep(delay)
+    clear()
+    lastmsgat = time.time()
 # shows a random graph:
 def graphz(seconds):
+    global lastmsgat
     graph = []
     filled = True
 
@@ -42,9 +57,11 @@ def graphz(seconds):
 
       show()
       sleep(0.05)
+    lastmsgat = time.time() 
      
 # shows the clock
 def showtime(seconds):
+    global lastmsgat
     t_end = time.time() + seconds
     while time.time() < t_end:
       clear()
@@ -99,11 +116,19 @@ client.connect("127.0.0.1", 1883, 60)
 # handles reconnecting.
 # Other loop*() functions are available that give a threaded interface and a
 # manual interface.
+options = {0 : showtime,
+           1 : graphz,
+           2 : cputemp
+}
 while True:
-  client.loop()
-  now = time.time()
-  if now - lastmsgat > silence:
-      print (datetime.datetime.fromtimestamp(now).strftime('%H:%M:%S') + " chirp")
-      showtime(10);
+    nowshowing = 0
+    while nowshowing < 2:
+     client.loop()
+     now = time.time()
+      if now - lastmsgat > silence:
+        print (datetime.datetime.fromtimestamp(now).strftime('%H:%M:%S') + " chirp")
+      
+        options[nowshowing](10)
+        nowshowing++
       
 
