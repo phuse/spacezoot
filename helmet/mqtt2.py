@@ -17,6 +17,11 @@ def remove_prefix(text, prefix):
 def cputemp(seconds):
     global lastmsgat
     t_end = time.time() + seconds
+    write_string( "cputmp", kerning=False)
+    set_mirror(True)
+    set_rotate180(True)
+    show()
+    time.sleep(delay)
     while time.time() < t_end:
       clear()
       path="/sys/class/thermal/thermal_zone0/temp"
