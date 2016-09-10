@@ -7,7 +7,7 @@ delay = 2
 silence = 10
 lastmsgat = time.time()
 
-from microdotphat import set_col,write_string, set_decimal, clear, show
+from microdotphat import set_col,write_string, set_decimal, set_mirror, set_rotate180, clear, show
 
 def remove_prefix(text, prefix):
     if text.startswith(prefix):
@@ -24,6 +24,8 @@ def cputemp(seconds):
       temp_raw = int(f.read().strip())
       temp = float(temp_raw / 1000.0)
       write_string( "%.2f" % temp + "c", kerning=False)
+      set_mirror(True)
+      set_rotate180(True)
       show()
       time.sleep(delay)
     clear()
@@ -55,6 +57,7 @@ def graphz(seconds):
         else:
             set_col(x, 1 << (7-val))
 
+      set_rotate180(True)
       show()
       time.sleep(0.05)
     lastmsgat = time.time() 
@@ -73,6 +76,8 @@ def showtime(seconds):
         set_decimal(2, 0)
         set_decimal(4, 0)
       write_string(t.strftime('%H%M%S'), kerning=False)
+      set_mirror(True)
+      set_rotate180(True)
       show()
       time.sleep(0.05)
     clear()
@@ -88,6 +93,8 @@ def on_connect(client, userdata, flags, rc):
     client.subscribe("helmet/#")
     clear()
     write_string('active', kerning=False)
+    set_mirror(True)
+    set_rotate180(True)
     show()
     time.sleep(delay)
     lastmsgat = time.time()
@@ -98,10 +105,14 @@ def on_message(client, userdata, msg):
     print(msg.topic+" "+str(msg.payload))
     clear()
     write_string(remove_prefix(msg.topic, 'helmet/'), kerning=False)
+    set_mirror(True)
+    set_rotate180(True)
     show()
     time.sleep(delay)
     clear()
     write_string(str(msg.payload), kerning=False)
+    set_mirror(True)
+    set_rotate180(True)
     show()
     lastmsgat = time.time()
     time.sleep(delay)
