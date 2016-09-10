@@ -56,7 +56,7 @@ def graphz(seconds):
             set_col(x, 1 << (7-val))
 
       show()
-      sleep(0.05)
+      time.sleep(0.05)
     lastmsgat = time.time() 
      
 # shows the clock
@@ -69,10 +69,10 @@ def showtime(seconds):
       if t.second % 2 == 0:
         set_decimal(2, 1)
         set_decimal(4, 1)
-       else:
+      else:
         set_decimal(2, 0)
         set_decimal(4, 0)
-       write_string(t.strftime('%H%M%S'), kerning=False)
+      write_string(t.strftime('%H%M%S'), kerning=False)
       show()
       time.sleep(0.05)
     clear()
@@ -125,7 +125,7 @@ while True:
     while nowshowing < 2:
      client.loop()
      now = time.time()
-      if now - lastmsgat > silence:
+     if now - lastmsgat > silence:
         print (datetime.datetime.fromtimestamp(now).strftime('%H:%M:%S') + " chirp")
       
         options[nowshowing](10)
