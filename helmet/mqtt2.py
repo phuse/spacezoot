@@ -60,6 +60,7 @@ def graphz(seconds):
       set_rotate180(True)
       show()
       time.sleep(0.05)
+    clear()
     lastmsgat = time.time() 
      
 # shows the clock
@@ -116,6 +117,7 @@ def on_message(client, userdata, msg):
     show()
     lastmsgat = time.time()
     time.sleep(delay)
+    clear()
 
 client = mqtt.Client()
 client.on_connect = on_connect
