@@ -2,6 +2,9 @@
 import paho.mqtt.client as mqtt
 import datetime
 import time
+from daemonize import Daemonize
+
+pid = "/tmp/HUD.pid"
 from random import randint
 delay = 2
 silence = 10
@@ -127,22 +130,16 @@ def on_message(client, userdata, msg):
     time.sleep(delay)
     clear()
     show()
-
-client = mqtt.Client()
-client.on_connect = on_connect
-client.on_message = on_message
-
-client.connect("127.0.0.1", 1883, 60)
-
+def main():
 # Blocking call that processes network traffic, dispatches callbacks and
 # handles reconnecting.
 # Other loop*() functions are available that give a threaded interface and a
 # manual interface.
-options = {0 : showtime,
-           1 : graphz,
-           2 : cputemp
-}
-while True:
+ options = {0 : showtime,
+            1 : graphz,
+            2 : cputemp
+ }
+ while True:
     nowshowing = 0
     while nowshowing < 3:
      client.loop()
@@ -153,4 +150,12 @@ while True:
         options[nowshowing](10)
         nowshowing += 1
       
+
+client = mqtt.Client()
+client.on_connect = on_connect
+client.on_message = on_message
+client.connect("127.0.0.1", 1883, 60)
+daemon = Daemonize(app="HUD", pid=pid, action=main)
+daemon.start()
+
 
