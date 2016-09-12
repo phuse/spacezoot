@@ -16,6 +16,11 @@ LED_DMA        = 5       # DMA channel to use for generating signal (try 5)
 LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
 LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
 
+#adjust for where your switch is connected
+buttonPin = 21
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(buttonPin,GPIO.IN)
+
 
 # Define functions which animate LEDs in various ways.
 def colorWipe(strip, color, wait_ms=50):
@@ -47,7 +52,7 @@ def main():
      if input_state == False:
 	colorWipe(strip, Color(128, 0, 0))  # Red wipe
         time.sleep(0.2)
-	colorWipe(strip, Color(8, 3, 90))  # blue wipe
+	theaterChase(strip, Color(8, 3, 90))  # blue wipe
      else:
         colorWipe(strip, Color(0, 255, 0)) # Green wipe
         time.sleep(0.2)
