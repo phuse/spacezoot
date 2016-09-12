@@ -35,20 +35,23 @@ def theaterChase(strip, color, wait_ms=50, iterations=10):
 			time.sleep(wait_ms/1000.0)
 			for i in range(0, strip.numPixels(), 3):
 				strip.setPixelColor(i+q, 0)
+
 def main():
-	#adjust for where your switch is connected
-    buttonPin = 21
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(buttonPin,GPIO.IN)
 	# Create NeoPixel object with appropriate configuration.
     strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS)
 	# Intialize the library (must be called once before other functions).
     strip.begin()
+	#adjust for where your switch is connected
     while True:
-       	while (GPIO.input(buttonPin)):
-        	colorWipe(strip, Color(0, 0, 255)) # Green wipe
-	colorWipe(strip, Color(128, 10, 0))  # Red wipe
-	colorWipe(strip, Color(0, 128, 0))  # Green wipe
+     input_state = GPIO.input(buttonPin)
+     if input_state == False:
+	colorWipe(strip, Color(128, 0, 0))  # Red wipe
+        time.sleep(0.2)
+	colorWipe(strip, Color(8, 3, 90))  # blue wipe
+     else:
+        colorWipe(strip, Color(0, 255, 0)) # Green wipe
+        time.sleep(0.2)
+
 
 
 daemon = Daemonize(app="test_app", pid=pid, action=main)
