@@ -1,4 +1,5 @@
 import time
+import RPi.GPIO as GPIO
 from daemonize import Daemonize
 
 pid = "/tmp/test.pid"
@@ -35,14 +36,19 @@ def theaterChase(strip, color, wait_ms=50, iterations=10):
 			for i in range(0, strip.numPixels(), 3):
 				strip.setPixelColor(i+q, 0)
 def main():
+	#adjust for where your switch is connected
+    buttonPin = 21
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(buttonPin,GPIO.IN)
 	# Create NeoPixel object with appropriate configuration.
     strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS)
 	# Intialize the library (must be called once before other functions).
     strip.begin()
     while True:
-		colorWipe(strip, Color(255, 0, 0))  # Red wipe
-		colorWipe(strip, Color(0, 255, 0))  # Blue wipe
-		colorWipe(strip, Color(0, 0, 255))  # Green wipe
+       	while (GPIO.input(buttonPin)):
+        	colorWipe(strip, Color(0, 0, 255)) # Green wipe
+	colorWipe(strip, Color(128, 10, 0))  # Red wipe
+	colorWipe(strip, Color(0, 128, 0))  # Green wipe
 
 
 daemon = Daemonize(app="test_app", pid=pid, action=main)
