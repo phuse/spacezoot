@@ -3,6 +3,7 @@ import paho.mqtt.client as mqtt
 import datetime
 import time
 from random import randint
+import socket
 delay = 2
 silence = 10
 lastmsgat = time.time()
@@ -100,6 +101,12 @@ def on_connect(client, userdata, flags, rc):
     # Subscribing in on_connect() means that if we lose the connection and
     # reconnect then subscriptions will be renewed.
     client.subscribe("helmet/#")
+    clear()
+    write_string(socket.gethostname(), kerning=False)
+    set_mirror(True)
+    set_rotate180(True)
+    show()
+    time.sleep(delay) 
     clear()
     write_string('active', kerning=False)
     set_mirror(True)
