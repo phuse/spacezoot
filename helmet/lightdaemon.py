@@ -50,14 +50,7 @@ def main():
     while True:
      input_state = GPIO.input(buttonPin)
      if input_state == False:
-        strip.setPixelColor(8, Color(0,0,0))
-        strip.setPixelColor(15, Color(255,0,0))
-        strip.show()
-        time.sleep(1)
-        strip.setPixelColor(8, Color(255,0,0))
-        strip.setPixelColor(15, Color(128,128,0))
-        strip.show()
-        time.sleep(1)
+        theaterChase(strip, Color(0, 60, 100)) # Green wipe
      else:
         colorWipe(strip, Color(200, 0, 100)) # Green wipe
         time.sleep(0.2)
