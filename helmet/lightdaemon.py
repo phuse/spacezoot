@@ -53,11 +53,11 @@ def main():
         strip.setPixelColor(8, Color(0,0,0))
         strip.setPixelColor(15, Color(255,0,0))
         strip.show()
-        time.sleep(wait_ms/1000.0)
+        time.sleep(1)
         strip.setPixelColor(8, Color(255,0,0))
         strip.setPixelColor(15, Color(128,128,0))
         strip.show()
-        time.sleep(wait_ms/1000.0)
+        time.sleep(1)
      else:
         colorWipe(strip, Color(200, 0, 100)) # Green wipe
         time.sleep(0.2)
