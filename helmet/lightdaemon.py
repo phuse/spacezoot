@@ -30,6 +30,17 @@ def colorWipe(strip, color, wait_ms=50):
 		strip.show()
 		time.sleep(wait_ms/1000.0)
 
+def colorblink(strip, color, wait_s=1):
+	"""Wipe color across display a pixel at a time."""
+	for i in range(strip.numPixels()):
+		strip.setPixelColor(i, 0)
+	strip.setPixelColor(4, color)
+	strip.show()
+	time.sleep(wait_s)
+	strip.setPixelColor(4, 0)
+	strip.show()
+	time.sleep(wait_s)
+
 def theaterChase(strip, color, wait_ms=50, iterations=10):
 	"""Movie theater light style chaser animation."""
 	for j in range(iterations):
@@ -50,7 +61,7 @@ def main():
     while True:
      input_state = GPIO.input(buttonPin)
      if input_state == False:
-        theaterChase(strip, Color(0, 60, 100)) # Green wipe
+        colorblink(strip, Color(60, 60, 0)) # Green wipe
      else:
         colorWipe(strip, Color(200, 0, 100)) # Green wipe
         time.sleep(0.2)
